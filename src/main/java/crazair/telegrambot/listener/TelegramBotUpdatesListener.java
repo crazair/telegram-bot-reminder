@@ -6,7 +6,6 @@ import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
 import crazair.telegrambot.model.NotificationTasks;
 import crazair.telegrambot.repository.TasksRepository;
-import liquibase.pro.packaged.S;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +22,7 @@ import java.util.regex.Pattern;
 public class TelegramBotUpdatesListener implements UpdatesListener {
 
     private final Logger logger = LoggerFactory.getLogger(TelegramBotUpdatesListener.class);
-    private final static Pattern PATTERN_MESS = Pattern.compile("([0-9\\.\\:\\s]{16})(\\s)([\\W+]+)");
+    private final static Pattern PATTERN_MESS = Pattern.compile("([\\d.:\\s]{16})(\\s)([\\W+]+)");
 
     @Autowired
     private TelegramBot telegramBot;
@@ -44,7 +43,7 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 long chatId = update.message().chat().id();
                 String text = update.message().text();
                 Matcher matcher = PATTERN_MESS.matcher(text);
-                if (text.equals("/start")) {
+                if ("/start".equals(text)) {
                     telegramBot.execute(new SendMessage(chatId, "Привет товарищъ!"));
                     telegramBot.execute(new SendMessage(chatId,
                             "Ты можешь создать напоминание в формате '01.01.2022 20:00 Сделать домашнюю работу!'"));
