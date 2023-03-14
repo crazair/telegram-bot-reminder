@@ -48,9 +48,8 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
                 long chatId = update.message().chat().id();
                 String text = update.message().text();
                 Matcher matcher = PATTERN_MESS.matcher(text);
-                System.out.println("11111111");
+
                 if ("/start".equals(text)) {
-                    System.out.println("222222");
                     SendMessage message = new SendMessage(chatId,
                             "Привет товарищъ! Ты можешь создать напоминание в формате *01.01.2022 20:00 Сделать домашнюю работу!*");
                     message.parseMode(ParseMode.Markdown);
