@@ -45,6 +45,11 @@ public class TelegramBotUpdatesListener implements UpdatesListener {
         try {
             updates.forEach(update -> {
                 LOG.info("Processing update: {}", update);
+
+                if (update.message() == null) {
+                    return;
+                }
+
                 long chatId = update.message().chat().id();
                 String text = update.message().text();
                 Matcher matcher = PATTERN_MESS.matcher(text);
